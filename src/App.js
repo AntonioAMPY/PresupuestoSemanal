@@ -41,7 +41,8 @@ function App() {
   },[gasto])
 
   const volverBoton = () => {
-    setMostrar(true)
+    setMostrar(true);
+    setGastos([]);
   }
 
   return (
