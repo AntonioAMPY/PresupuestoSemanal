@@ -1,25 +1,94 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, Fragment, useEffect} from 'react';
+import Pregunta from './components/Pregunta'
+import Formulario from './components/Formulario'
+import Listado from './components/Listado'
+import ControlPresupuesto from './components/ControlPresupuesto'
+
 
 function App() {
+
+  // Definir el state
+
+  const [presupuesto, setPresupuesto] = useState(0); 
+  const [restante, setRestante] = useState(0);
+  const [mostrar, setMostrar] = useState(true); // Carga condicional de componentes
+  const [gastos, setGastos] = useState([]); // Listado de todos los gastos
+  const [gasto, setGuardargasto] = useState({}) 
+  const [creargasto, setCrearGasto] = useState(false);
+
+
+  // UseEfffect que actualiza el restante
+
+  useEffect(() => {
+    if(creargasto){
+
+      // Agrega el nuevo presupuesto
+      setGastos([
+        ...gastos,
+        gasto
+      ]);
+
+      // Resta del presupuesto actual
+
+      const presupuestoRestante = restante - gasto.gcantidad;
+      setRestante(presupuestoRestante);
+
+        // Resetar a false
+
+        setCrearGasto(false);
+    }
+
+  },[gasto])
+
+  const volverBoton = () => {
+    setMostrar(true)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <Fragment>
+      <div className="container">
+            <header>
+            <h1>Presupuesto semanal</h1>
+           
+            <div className="contenido-principal contenido" >
+              {mostrar ? 
+              <Pregunta
+                setPresupuesto = {setPresupuesto}
+                setRestante = {setRestante}
+                setMostrar = {setMostrar}
+              />
+               
+              :
+                <div className="row">
+                    <div className="col-6">
+                      <Formulario
+                        setGuardargasto = {setGuardargasto}
+                        setCrearGasto = {setCrearGasto}
+                      />
+                    </div>
+                    <div className="col-6">
+                      <Listado
+                        gastos ={gastos}
+                      />
+
+                      <ControlPresupuesto
+                        presupuesto = {presupuesto}
+                        restante = {restante}
+                      />
+
+                      <button
+                        className = "btn btn-info w-100"
+                        onClick = {volverBoton}
+                      >Volver</button>
+                    </div>
+                </div>
+              }
+          </div>
+          </header>
+        </div>
+    </Fragment>
+
   );
 }
 
