@@ -38,7 +38,7 @@ function App() {
         setCrearGasto(false);
     }
 
-  },[gasto])
+  },[gasto, creargasto, gastos, restante])
 
   const volverBoton = () => {
     setMostrar(true);
@@ -79,7 +79,7 @@ function App() {
                       />
 
                       <button
-                        className = "btn btn-info w-100"
+                        className = "btn btn-info w-100 font-weight-bold"
                         onClick = {volverBoton}
                       >Volver</button>
                     </div>
