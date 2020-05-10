@@ -62,13 +62,13 @@ function App() {
                
               :
                 <div className="row">
-                    <div className="col-6">
+                    <div className="col-12 col-sm-12 col-md-6 col-lg-6">
                       <Formulario
                         setGuardargasto = {setGuardargasto}
                         setCrearGasto = {setCrearGasto}
                       />
                     </div>
-                    <div className="col-6">
+                    <div className="col-12 col-sm-12 col-md-6 col-lg-6">
                       <Listado
                         gastos ={gastos}
                       />
